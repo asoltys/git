@@ -29,6 +29,12 @@ while (@ARGV) {
 		push(@args, "zlib.lib");
 	} elsif ("$arg" eq "-liconv") {
 		push(@args, "iconv.lib");
+	} elsif ("$arg" eq "-lcrypto") {
+		push(@args, "libeay32.lib");
+	} elsif ("$arg" eq "-lssl") {
+		push(@args, "ssleay32.lib");
+	} elsif ("$arg" eq "-lcurl") {
+		push(@args, "libcurl.lib");
 	} elsif ("$arg" =~ /^-L/ && "$arg" ne "-LTCG") {
 		$arg =~ s/^-L/-LIBPATH:/;
 		push(@args, $arg);
@@ -45,4 +51,4 @@ if ($is_linking) {
 	push(@args, @cflags);
 }
 #printf("**** @args\n");
-exit system(@args);
+exit (system(@args) != 0);
